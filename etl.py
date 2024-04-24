@@ -1,19 +1,22 @@
-from newsapi import NewsApiClient
+import os
+os.system("pip install azure-storage-blob==12.19.1 lxml_html_clean==0.1.1 newsapi-python==0.2.7 newspaper3k==0.2.8 nltk==3.8.1 pandas==2.2.1 psycopg2-binary==2.9.9 pyarrow==15.0.2 SQLAlchemy==2.0.20")
+
+
+
+from newsapi.newsapi_client import NewsApiClient
 import pandas as pd
 from newspaper import Article, Config
 from nltk.corpus import stopwords
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-
 import pyarrow as pa 
 import pyarrow.parquet as pq
 from io import BytesIO
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
-import os
 from datetime import date, timedelta
-
 import psycopg2
 from sqlalchemy import create_engine
+
 
 def extract_transform_function():
 
@@ -21,7 +24,7 @@ def extract_transform_function():
     yesterday = today - timedelta(days = 1)
     day_before_yesterday = today - timedelta(days = 2)
     # Init
-    newsapi = NewsApiClient(api_key='yourkey')
+    newsapi = NewsApiClient(api_key='ff4373852c2343a98303951439854f8c')
 
     # /v2/top-headlines
     top_headlines = newsapi.get_top_headlines(   
@@ -83,9 +86,6 @@ def extract_transform_function():
 
     df['word_count'] = df['content'].apply(count_words_without_stopwords)
 
-
-
-
     nltk.download('vader_lexicon')
 
     sid = SentimentIntensityAnalyzer()
@@ -106,6 +106,8 @@ def extract_transform_function():
     df[['Sentiment', 'Compound_Score']] = df['content'].astype(str).apply(lambda x: pd.Series(get_sentiment(x)))
 
     return df
+
+    
 
 dataframe = extract_transform_function()
 dataframe = dataframe
@@ -165,5 +167,6 @@ def load_to_postgres(df):
 
 
 load_to_blob(dataframe)
+load_to_postgres(dataframe)
 
 
