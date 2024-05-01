@@ -16,8 +16,7 @@ def extract_date(filename):
     return pd.to_datetime(filename.split('.')[0].split('news-')[1])
 
 # Path to the folder containing parquet files
-folder_path = "/workspace/World_news_tutorial/blob_files"
-
+folder_path = "./blob_files"
 # Get list of parquet files in the folder
 parquet_files = [f for f in os.listdir(folder_path) if f.endswith('.parquet')]
 

@@ -10,7 +10,7 @@ import plotly.graph_objects as go
 from wordcloud import WordCloud
 
 
-directory = "../World_news_tutorial/blob_files"
+directory = "./blob_files"
 
 # List all Parquet files in the directory
 parquet_files = [file for file in os.listdir(directory) if file.endswith('.parquet')]

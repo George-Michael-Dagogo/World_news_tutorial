@@ -7,11 +7,10 @@ import plotly.express as px
 import seaborn as sns
 from pages import recent_data, overall_data
 from azure.storage.blob import BlobServiceClient, BlobClient 
-import os
 
 connection_string = ""
 container_name = "testtech"
-local_download_path = "../World_news_tutorial/blob_files"
+local_download_path = "./blob_files"
 
 blob_service_client = BlobServiceClient.from_connection_string(connection_string)
 container_client = blob_service_client.get_container_client(container_name)
