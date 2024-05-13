@@ -1,6 +1,7 @@
 import os
 os.system("pip install azure-storage-blob==12.19.1 lxml_html_clean==0.1.1 newsapi-python==0.2.7 newspaper3k==0.2.8 nltk==3.8.1 pandas==2.2.1 psycopg2-binary==2.9.9 pyarrow==15.0.2 SQLAlchemy==2.0.20")
-
+#or
+#os.system("pip install -r https://raw.githubusercontent.com/George-Michael-Dagogo/World_news_tutorial/main/requirements.txt")
 
 
 from newsapi.newsapi_client import NewsApiClient
